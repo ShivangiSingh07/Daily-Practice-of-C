@@ -2,55 +2,41 @@
 
 /*
 Question:
-Given an integer array sorted in non-decreasing order,
-square every element and return the squares in sorted order
-without sorting the array again.
+Given an array of integers, square every element and
+display the squared elements in sorted order.
 
-Example:
-Input:  {-4, -1, 0, 3, 10}
-Output: {0, 1, 9, 16, 100}
-
-Time Complexity: O(n)
+Input:  -4 -3 -5 1 2 3
+Output:  1 4 9 9 16 25
 */
-
-void sortedSquares(int a[], int n, int result[])
-{
-    int left = 0;
-    int right = n - 1;
-    int pos = n - 1;
-
-    while (left <= right)
-    {
-        int leftSquare = a[left] * a[left];
-        int rightSquare = a[right] * a[right];
-
-        if (leftSquare > rightSquare)
-        {
-            result[pos] = leftSquare;
-            left++;
-        }
-        else
-        {
-            result[pos] = rightSquare;
-            right--;
-        }
-
-        pos--;
-    }
-}
 
 int main()
 {
-    int a[] = {-4, -1, 0, 3, 10};
-    int n = 5;
-    int result[5];
+    int a[] = {-4, -3, -5, 1, 2, 3};
+    int n = 6;
+    int i, j, temp;
 
-    sortedSquares(a, n, result);
+    /* Square every element */
+    for (i = 0; i < n; i++)
+        a[i] = a[i] * a[i];
 
-    printf("Sorted squares: ");
+    /* Sort the squared elements */
+    for (i = 0; i < n - 1; i++)
+    {
+        for (j = 0; j < n - i - 1; j++)
+        {
+            if (a[j] > a[j + 1])
+            {
+                temp = a[j];
+                a[j] = a[j + 1];
+                a[j + 1] = temp;
+            }
+        }
+    }
 
-    for (int i = 0; i < n; i++)
-        printf("%d ", result[i]);
+    printf("Output: ");
+
+    for (i = 0; i < n; i++)
+        printf("%d ", a[i]);
 
     return 0;
 }
